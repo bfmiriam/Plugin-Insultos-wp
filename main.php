@@ -15,13 +15,13 @@ function cambiar_palabra($content){
     
      global $wpdb;
      
-    
+    //hacemos una consulta a la tabla de la base de datos para recoger la palabras censurables y cambiarlas
      $texto = $wpdb->get_results( "SELECT text FROM wp5_insultosbd");
 
      $opcion = $wpdb->get_results( "SELECT opcion FROM wp5_insultosbd");
      
 	
-
+    //recorremos los post y suplimos los insultos si es que los hay
      for ($i =0; $i < sizeOf($texto); $i++) {
 
         $search =$texto[$i]->text;
@@ -38,9 +38,10 @@ function cambiar_palabra($content){
 }
 add_filter( 'the_content', 'cambiar_palabra' );
 
-
+ 
 function insultos_table_init()
 {
+    //creamos la tabla para recoger los insultos y sus variantes y añadimos valores
     function insultos_shortcode($atts = [], $content = null)
     {
         // do something to $content
